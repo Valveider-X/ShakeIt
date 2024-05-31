@@ -34,7 +34,7 @@ function IngredientsList() {
             <p>{ingredient.hasAlcohol}</p>
             <p>{ingredient.alcoholGraduation}</p>
             <p>{ingredient.description}</p>
-            <img src={ingredient.img}/>
+            <hr></hr>
 
           </div>
         )
