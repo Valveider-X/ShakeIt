@@ -13,17 +13,47 @@ import IngredientsList from './components/IngredientsList'
 import CocktailList from './pages/CocktailList'
 import CocktailDetails from './pages/CocktailDetails'
 
+//MUI
+import { Container, Box, Typography, CssBaseline } from '@mui/material';
+import { darkTheme, lightTheme } from './themes'
+import { ThemeProvider } from '@emotion/react'
+
+
 
 //components
 import Navbar from './components/Navbar'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [darkMode, setDarkMode] = useState(true)
+
+  const handleThemeChange = () => {
+    setDarkMode(!darkMode)
+  }
 
   return (
-    <div>
-    <Navbar />
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
+
+    <Navbar darkMode={darkMode} handleThemeChange={handleThemeChange} />
+    <Container>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="5vh"
+        flexDirection="column"
+        sx={{
+          p:{xs: 2, md: 4},
+          bgcolor: "background.default",
+          color: "text.primary",
+        }}
+        >
+           <Box mt={2}>
+            <Typography variant="body1"></Typography>
+          </Box> 
+        </Box>
+    </Container>
 
     <br />
     <hr />
@@ -40,7 +70,7 @@ function App() {
       {/* error FE routes here... */}
 
     </Routes>
-  </div>
+    </ThemeProvider>
   )
 }
 
