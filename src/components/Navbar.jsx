@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/auth.context'
 
 //MUI
-import {Button, Container, Box, Typography, CssBaseline, ListItemText} from "@mui/material"
+import {Button, Container, Box, Typography, CssBaseline, ListItemText, Switch} from "@mui/material"
 import { ThemeProvider } from "@mui/material"
 import { darkTheme, lightTheme } from '../themes'
 
 
 //NAVBAR
-
+//imagen
+import logo from "/images/logo.png"
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -82,6 +83,7 @@ function Navbar({darkMode, handleThemeChange}) {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
         <List>
+        <img className="shake" src={logo} width={"120px"}/>
           <ListItem button component={Link} to="/create-cocktail">
             <ListItemText primary="Crea tu Cocktail" />
           </ListItem>
@@ -130,11 +132,13 @@ function Navbar({darkMode, handleThemeChange}) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Logo
+        <Typography className="shake" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link to="/" style={{color: 'inherit'}}>
+        Shake It!
+        </Link>
         </Typography>
-        <Button color="inherit" onClick={handleThemeChange}>{darkMode ? "Light Mode" : "Dark Mode"}
-        </Button>
+        <Switch color="inherit" onClick={handleThemeChange}>{darkMode ? "Light Mode" : "Dark Mode"}
+        </Switch>
             <IconButton
               size="large"
               aria-label="account of current user"
