@@ -22,6 +22,8 @@ import { ThemeProvider } from '@emotion/react'
 
 //components
 import Navbar from './components/Navbar'
+import CocktailMap from './pages/CocktailMap'
+import MapComponent from './components/MapComponent'
 
 
 function App() {
@@ -66,6 +68,7 @@ function App() {
       <Route path="/ingredients" element={<IngredientsList />}/>
       <Route path="/cocktails" element={<CocktailList />}/>
       <Route path="/cocktails/:cocktailId" element={<CocktailDetails />}/>
+      <Route path="/bars" element={<CocktailMap />} />
 
       {/* error FE routes here... */}
 
