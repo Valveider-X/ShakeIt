@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage'
 import IngredientsList from './components/IngredientsList'
 import CocktailList from './pages/CocktailList'
 import CocktailDetails from './pages/CocktailDetails'
+import CocktailIce from './pages/CocktailIce'
 
 //MUI
 import { Container, Box, Typography, CssBaseline } from '@mui/material';
@@ -23,6 +24,8 @@ import { ThemeProvider } from '@emotion/react'
 //components
 import Navbar from './components/Navbar'
 import CocktailMap from './pages/CocktailMap'
+import CocktailUtensils from './pages/CocktailUtensils'
+import CocktailsTechniques from './pages/CocktailsTechniques'
 import MapComponent from './components/MapComponent'
 
 
@@ -68,6 +71,9 @@ function App() {
       <Route path="/ingredients" element={<IngredientsList />}/>
       <Route path="/cocktails" element={<CocktailList />}/>
       <Route path="/cocktails/:cocktailId" element={<CocktailDetails />}/>
+      <Route path="/articles/ice" element={<CocktailIce />}/>
+      <Route path="/articles/utensils" element={<CocktailUtensils />}/>
+      <Route path="/articles/techniques" element={<CocktailsTechniques />}/>
       <Route path="/bars" element={<CocktailMap />} />
 
       {/* error FE routes here... */}

@@ -87,7 +87,7 @@ function Navbar({darkMode, handleThemeChange}) {
           <ListItem button component={Link} to="/create-cocktail">
             <ListItemText primary="Crea tu Cocktail" />
           </ListItem>
-            <ListItem button component={Link} to="/cocktail-list">
+            <ListItem button component={Link} to="/cocktails">
               <ListItemText primary="Lista de Cocktails" />
             </ListItem>
             <ListItem button component={Link} to="/bars">
@@ -96,17 +96,21 @@ function Navbar({darkMode, handleThemeChange}) {
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMore/>}
               aria-controls='panel1a-content'
-              id="panel1a-header">
-                <Typography>Artículos</Typography>
+              id="panel1a-header"
+              onClick={(event)=> event.stopPropagation()}>
+                <Typography>Articles</Typography>
                 
               </AccordionSummary>
               <AccordionDetails>
                 <List>
                   <ListItem button component={Link} to="/articles/utensils">
-                    <ListItemText primary="Utensilios" />
+                    <ListItemText primary="Utensils" />
                   </ListItem>
                   <ListItem button component={Link} to="/articles/ice">
-                    <ListItemText primary="Hielo" />
+                    <ListItemText primary="Ice" />
+                  </ListItem>
+                  <ListItem button component={Link} to="/articles/techniques">
+                    <ListItemText primary="Techniques" />
                   </ListItem>
                 </List>
               </AccordionDetails>

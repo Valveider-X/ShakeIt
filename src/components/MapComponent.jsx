@@ -2,33 +2,40 @@ import React, { useEffect, useRef, useState } from 'react'
 import {Map, TileLayer, Marker} from "leaflet"
 
 
-function MapComponent() {
+ function MapComponent() {
+  /* const map = L.map("map", {
+    center: [40.425460, -3.704720], //sitio madriz
+    zoom: 13,
+
+  })
+ } */
+
     const [map, setMap] =useState(null)
-    const mapInit = useRef(false)
+    //const mapInit = useRef(false) 
 
 
     useEffect(()=>{
       //para iniciar mapa
       //todo sale el mapa como quiere con cuadras intercambiadas
         //iniciando mapa
-            mapInit.current = true
-            const mapInstance = new Map("map", {
+           /*  mapInit.current = true */
+            const cocktailMap = L.map("map", {
                 center: [40.425460, -3.704720], //sitio madriz
-                zoom: 15,
+                zoom: 13,
 
             })
-            //console.log(mapInstance); //! Console
+            //console.log(cocktailMap); //! Console (running)
 
-            setMap(mapInstance)
+            setMap(cocktailMap)
           const tileLayer = new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
             subdomains: ['a', 'b', 'c']
         })
         //console.log(tileLayer); //! Console
 
-        mapInstance.addLayer(tileLayer)
+        cocktailMap.addLayer(tileLayer)
       
-    },[mapInit])
+    },[])
 
     const bars = [
       {
@@ -64,8 +71,12 @@ function MapComponent() {
       width: 800, 
       border: '1px solid black',
     overflow: "hidden",
-  position: "relative"}}></div>
+  position: "relative",
+}}
+>
+<Map options/>
+</div>
   )
 }
-
+ 
 export default MapComponent
