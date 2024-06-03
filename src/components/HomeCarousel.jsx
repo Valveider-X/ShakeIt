@@ -6,10 +6,12 @@ import ice from "/images/ice.jpg"
 import tools from "/images/tools.jpg"
 import techniques from "/images/stir.jpg"
 import { Link } from 'react-router-dom'
+import { Grid, Typography, Card, CardContent, CardMedia } from '@mui/material'
 
 function HomeCarousel() {
   return (
    <Carousel >
+    <Grid container spacing={2}></Grid>
     
         <Link to ="/make-cocktail">
     <img src ={makeCocktail} style={{width: "200px", height: "300px"}} alt="Make your cocktail"/>
