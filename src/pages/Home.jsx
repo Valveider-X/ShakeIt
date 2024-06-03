@@ -1,12 +1,12 @@
 import React from 'react'
+import HomeCarousel from '../components/HomeCarousel'
 
 
-B
 
 function Home() {
   return (
     <div>
-        <h1>Home</h1>
+        <HomeCarousel/>
     </div>
   )
 }
