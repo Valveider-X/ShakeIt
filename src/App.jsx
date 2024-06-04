@@ -27,6 +27,7 @@ import CocktailMap from './pages/CocktailMap'
 import CocktailUtensils from './pages/CocktailUtensils'
 import CocktailsTechniques from './pages/CocktailsTechniques'
 import MapComponent from './components/MapComponent'
+import MakeCocktail from './pages/MakeCocktail'
 
 
 function App() {
@@ -41,27 +42,7 @@ function App() {
       <CssBaseline />
 
     <Navbar darkMode={darkMode} handleThemeChange={handleThemeChange} />
-    <Container>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="5vh"
-        flexDirection="column"
-        sx={{
-          p:{xs: 2, md: 4},
-          bgcolor: "background.default",
-          color: "text.primary",
-        }}
-        >
-           <Box mt={2}>
-            <Typography variant="body1"></Typography>
-          </Box> 
-        </Box>
-    </Container>
-
-    <br />
-    <hr />
+    
 
     <Routes>
       <Route path="/" element={<Home/>} />
@@ -74,6 +55,7 @@ function App() {
       <Route path="/articles/ice" element={<CocktailIce />}/>
       <Route path="/articles/utensils" element={<CocktailUtensils />}/>
       <Route path="/articles/techniques" element={<CocktailsTechniques />}/>
+      <Route path="/create-cocktail" element={<MakeCocktail />}/>
       <Route path="/bars" element={<CocktailMap />} />
 
       {/* error FE routes here... */}

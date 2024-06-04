@@ -11,7 +11,7 @@ import { Grid, Typography, Card, CardContent, CardMedia } from '@mui/material'
 function HomeCarousel() {
   return (
    <Carousel >
-    <Grid container spacing={2}></Grid>
+
     
         <Link to ="/make-cocktail">
     <img src ={makeCocktail} style={{width: "200px", height: "300px"}} alt="Make your cocktail"/>

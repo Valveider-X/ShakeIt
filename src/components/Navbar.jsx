@@ -123,7 +123,7 @@ function Navbar({darkMode, handleThemeChange}) {
 
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, width: "70vw" }}>
     <AppBar position="static">
       <Toolbar>
         <IconButton
