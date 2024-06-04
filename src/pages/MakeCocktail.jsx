@@ -84,13 +84,15 @@ function MakeCocktail() {
     try { //llamar cons ervice pero no funca
       const response = await axios.post(
         `${import.meta.env.VITE_URL_BACKEND}/cocktails`,
-        newCocktail,
-        {
+        newCocktail,{
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
+          
         }
+        
       );
+      navigate("/cocktails")
       console.log(response.data);
     } catch (error) {
       console.log(error);
