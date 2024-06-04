@@ -2,19 +2,23 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 useState
 import { Link } from 'react-router-dom'
+import service from '../services/config.services'
+
 
 function CocktailList() {
     const [cocktailList, setCocktailList]=useState(null)
 
     useEffect(()=>{
-        axios.get(`${import.meta.env.VITE_URL_BACKEND}/cocktails`)
-   
-    .then((response)=>{
-        setCocktailList(response.data)
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
+        const getData = async ()=>{
+            try{
+                const response = await service.get(`${import.meta.env.VITE_URL_BACKEND}/api/cocktails`)
+                setCocktailList(response.data)
+            }catch(error){
+                console.log(error);
+            }
+        }
+        getData()
+
 },[])
 
 if (cocktailList === null){
@@ -27,7 +31,7 @@ if (cocktailList === null){
                 <div key={i}>
                     <Link to={"/cocktails/" + cocktail._id}>
                     <h3>{cocktail.name}</h3>
-                    <img src={cocktail.img}/>
+                    <img src={cocktail.imageUrl}/>
                     {/* <h3>{cocktail.category}</h3>
                     <h3>{cocktail.description}</h3>
                     <h3>{cocktail.steps}</h3> */}

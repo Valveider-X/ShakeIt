@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import service from "../services/config.services";
 import {
   Dialog,
@@ -11,6 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { AuthContext } from "../context/auth.context";
+const params = useParams
 
 function MakeCocktail() {
   const {authToken} = useContext(AuthContext);
@@ -26,6 +27,47 @@ function MakeCocktail() {
   const navigate = useNavigate();
   /* const [matchingIngredient, setMatchingIngredient]=useState([]) */
 
+  //CLOUDINARY
+  const [imageUrl, setImageUrl] = useState(null); 
+  const [isUploading, setIsUploading] = useState(false); 
+
+  //CLOUDINARY UPLOAD
+  const handleFileUpload = async (event) => {
+    // console.log("The file to be uploaded is: ", e.target.files[0]);
+   
+    if (!event.target.files[0]) {
+      // to prevent accidentally clicking the choose file button and not selecting a file
+      return;
+    }
+  
+    setIsUploading(true); // to start the loading animation
+  
+    const uploadData = new FormData(); // images and other files need to be sent to the backend in a FormData
+    uploadData.append("image", event.target.files[0]);
+    //                   |
+    //     this name needs to match the name used in the middleware in the backend => uploader.single("image")
+    
+  
+  
+    try {
+      const response = await service.post("/upload", uploadData)
+      // !IMPORTANT: Adapt the request structure to the one in your proyect (services, .env, auth, etc...)
+  
+      setImageUrl(response.data.imageUrl);
+      console.log(imageUrl);
+      //                          |
+      //     this is how the backend sends the image to the frontend => res.json({ imageUrl: req.file.path });
+  
+      setIsUploading(false);
+      
+   /*  const editCocktail = {
+      imageUrl: response.data.imageUrl
+    }  
+    await service.patch(`/cocktail/${params.id}`, editCocktail) */
+    } catch (error) {
+      navigate("/error");
+    }
+  };
 
   const handleOpenDialog = () => {
     setSelectedIngredients([])
@@ -37,7 +79,7 @@ function MakeCocktail() {
 
   useEffect(() => {
     getIngredients();
-  }, [authToken]);
+  }, []);
 
   const getIngredients = async () => {
     try {
@@ -72,27 +114,25 @@ function MakeCocktail() {
 
  
   }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
+    console.log(imageUrl);
     const newCocktail = {
       name: nameValue,
       category: categoryValue,
-      //img
+      imageUrl: imageUrl,
       description: descriptionValue,
-      ingredients: ingredientsValue,
+      ingredients: ingredientsValue.map((ingredient) => ingredient._id), 
       steps: stepsValue,
 
-      //owner, no se como ponerlo
+  
     };
 
-    try { //llamar cons ervice pero no funca
+    try { 
       const response = await service.post(
         `/cocktails`,
-        newCocktail
-        
-      );
+        newCocktail);
       navigate("/cocktails")
       console.log(response.data);
     } catch (error) {
@@ -102,6 +142,24 @@ function MakeCocktail() {
  
   return (
     <div>
+      <div>
+  <label>Image: </label>
+  <input
+    type="file"
+    name="image"
+    onChange={handleFileUpload}
+    disabled={isUploading}
+  />
+  {/* below disabled prevents the user from attempting another upload while one is already happening */}
+  {/* to render a loading message or spinner while uploading the picture */}
+  </div>
+{isUploading ? <h3>... uploading image</h3> : null}
+
+{/* below line will render a preview of the image from cloudinary */}
+{imageUrl ? (<div><img src={imageUrl} alt="img" width={200} /></div>) : null}
+
+
+
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -112,6 +170,13 @@ function MakeCocktail() {
             onChange={(e) => setNameValue(e.target.value)}
           />
         </label>
+
+        <div>
+        
+
+
+
+        </div>
 
         <label>
           Category:
