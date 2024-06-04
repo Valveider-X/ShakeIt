@@ -24,11 +24,11 @@ function MakeCocktail() {
   const [ingredientsOptions, setIngredientsOptions] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
-
-
+  /* const [matchingIngredient, setMatchingIngredient]=useState([]) */
 
 
   const handleOpenDialog = () => {
+    setSelectedIngredients([])
     setOpenDialog(true);
   };
   const handleCloseDialog = () => {
@@ -62,10 +62,16 @@ function MakeCocktail() {
       setSelectedIngredients([...selectedIngredients, newIngredient]); //spread. si no se mete y concatena
     }
   };
-  const handleAcceptIngredients = () => { //boton para aceptar los ingredientes
-    setIngredientsValue((prevIngredients)=> [...prevIngredients, ...selectedIngredients]); //valor actual del estado y funcion para actualizar
-    setOpenDialog(false); //callback con spread para concatenar
-  };
+  const handleAcceptIngredients = () => {
+    const selectedIngredientNames = selectedIngredients.map(
+      (ingredientId) => ingredientsOptions.find((option)=> option._id === ingredientId).name
+    )
+    setIngredientsValue((prevIngredients)=> [...prevIngredients, ...selectedIngredientNames])
+    setOpenDialog(false)
+
+
+ 
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,14 +88,9 @@ function MakeCocktail() {
     };
 
     try { //llamar cons ervice pero no funca
-      const response = await axios.post(
-        `${import.meta.env.VITE_URL_BACKEND}/cocktails`,
-        newCocktail,{
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-          
-        }
+      const response = await service.post(
+        `/cocktails`,
+        newCocktail
         
       );
       navigate("/cocktails")
@@ -98,6 +99,7 @@ function MakeCocktail() {
       console.log(error);
     }
   };
+ 
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -155,9 +157,9 @@ function MakeCocktail() {
 
         <label>
           Ingredients:
-          <button onClick={handleOpenDialog}>Select Ingredients</button>
+          <button type="button" onClick={handleOpenDialog}>Select Ingredients</button>
           {ingredientsValue.length > 0 && (//SI la longitud tiene almenos 1 elemento, renderiza los chips(no sale)
-            <Chip label={ingredientsValue.map((ing) => ing.name).join(", ")} /> //concatena los nombres de los elementos iterados del map
+            <Chip label={ingredientsValue.join(', ')} /> //concatena los nombres de los elementos iterados del map //meterlo en useState
           )}
           <Dialog open={openDialog} onClose={handleCloseDialog}>
             <button onClick={handleAcceptIngredients}>
@@ -166,12 +168,12 @@ function MakeCocktail() {
             <DialogTitle>Select Ingredients</DialogTitle>
             <DialogContent>
               <Box sx={{ maxHeight: 400, overflow: "auto" }}>
-                {ingredientsOptions.map((ingredient) => (
-                  <div key={ingredient.id}>
+                {ingredientsOptions && ingredientsOptions.map((ingredient) => (
+                  <div key={ingredient._id}>
                     <Typography>{ingredient.name}</Typography>
                     <input
                       type="checkbox"
-                      value={ingredient.id}
+                      value={ingredient._id}
                       onChange={handleIngrChange}
                     />
                   </div>

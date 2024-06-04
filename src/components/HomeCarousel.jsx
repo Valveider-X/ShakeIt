@@ -6,19 +6,40 @@ import ice from "/images/ice.jpg";
 import tools from "/images/tools.jpg";
 import techniques from "/images/stir.jpg";
 import { Link } from "react-router-dom";
-import { Grid, Typography, Card, CardContent, CardMedia } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/system";
+import Typography  from "@mui/material/Typography";
+import Paper  from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import {createTheme} from "@mui/system";
+import ThemeProvider from "@mui/system/ThemeProvider";
 
 const theme = createTheme({
   palette: {
     mode: "dark",
   },
+  components: {
+    MuiPaper:{
+      defaultProps:{
+        elevation: 0,
+        square: true,
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: "rgba(255, 255, 255, 0.05)",
+          border: "1px solid rgba(255, 255, 255, 0.12)",
+          borderRadius: 4
+        }
+      }
+    }
+  }
 });
 
 function HomeCarousel() {
   return (
-   /*  <ThemeProvider theme={theme}>
-      <Carousel>
+     <ThemeProvider theme={theme}>
+     
+{/*
         <Card sx={{ maxWidth: 345, margin: 2 }}>
           <Link to="/make-cocktail">
             <CardMedia
@@ -38,7 +59,7 @@ function HomeCarousel() {
           </Link>
         </Card>
 
-        <Card sx={{ maxWidth: 345, margin: 2 }}>
+         <Card sx={{ maxWidth: 345, margin: 2 }}>
           <CardMedia
             component="img"
             height="300"
@@ -94,10 +115,9 @@ function HomeCarousel() {
               Master the art of mixing cocktails with our techniques
             </Typography>
           </CardContent>
-        </Card>
-      </Carousel>
-    </ThemeProvider> */
-    <p>HOLA</p>
+        </Card>*/}
+    </ThemeProvider> 
+  
   );
 }
 
