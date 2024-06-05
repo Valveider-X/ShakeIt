@@ -28,12 +28,22 @@ function CocktailDetails() {
   if (!cocktailDetails) {
     return <h1>ESPERA</h1>;
   }
+  const favCocktail = async () =>{
+    try {
+      await service.patch(`/user/${params.cocktailId}/fav`)
+      navigate("/cocktails")
+
+      
+    } catch (error) {
+      
+    }
+  }
 
   const deleteCocktail = async () => {
     try {
-      await authenticateUser();
+      /* await authenticateUser(); */
       await service.delete(
-        `${import.meta.env.VITE_URL_BACKEND}/api/cocktails/${params.cocktailId}`
+        `/cocktails/${params.cocktailId}`
       );
       navigate("/cocktails");
     } catch (error) {
@@ -54,6 +64,7 @@ function CocktailDetails() {
             >
               Editar
             </button>
+            <button onClick={favCocktail}>Favorites</button>
 
             <div>
               <h3>{cocktailDetails.name}</h3>
