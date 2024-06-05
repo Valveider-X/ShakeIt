@@ -14,7 +14,7 @@ import { AuthContext } from "../context/auth.context";
 const params = useParams
 
 function MakeCocktail() {
-  const {authToken} = useContext(AuthContext);
+  const {authenticateUser, isLoggedIn, loggedUserId } = useContext(AuthContext);
 
   const [nameValue, setNameValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");

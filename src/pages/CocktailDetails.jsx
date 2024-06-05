@@ -23,12 +23,10 @@ function CocktailDetails() {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        `${import.meta.env.VITE_URL_BACKEND}/api/cocktails/${params.cocktailId}`
-      )
-      .then((response) => {
-        setCocktailDetails(response.data);
+    const pillarData = async()=>{
+    try {
+      const response = await service.get(`/cocktails/${params.cocktailId}`)
+      setCocktailDetails(response.data);
         setFormData({
           name: response.data.name,
           category: response.data.category,
@@ -36,11 +34,14 @@ function CocktailDetails() {
           steps: response.data.steps,
           ingredients: response.data.ingredients,
           imageUrl: response.data.imageUrl,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        })
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+    pillarData()
   }, []);
 
   if (!cocktailDetails){
@@ -155,6 +156,7 @@ return (
                 </div>
               );
             })}
+          <Comment cocktailId={cocktailDetails._id}/>
           </div>
         )}
       </>
