@@ -28,6 +28,7 @@ import CocktailUtensils from './pages/CocktailUtensils'
 import CocktailsTechniques from './pages/CocktailsTechniques'
 import MapComponent from './components/MapComponent'
 import MakeCocktail from './pages/MakeCocktail'
+import CocktailEdit from './pages/CocktailEdit'
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
       <Route path="/ingredients" element={<IngredientsList />}/>
       <Route path="/cocktails" element={<CocktailList />}/>
       <Route path="/cocktails/:cocktailId" element={<CocktailDetails />}/>
+      <Route path="/cocktail/:cocktailId/edit" element={<CocktailEdit />}/>
       <Route path="/articles/ice" element={<CocktailIce />}/>
       <Route path="/articles/utensils" element={<CocktailUtensils />}/>
       <Route path="/articles/techniques" element={<CocktailsTechniques />}/>

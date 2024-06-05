@@ -31,7 +31,7 @@ if (cocktailList === null){
                 <div key={i}>
                     <Link to={"/cocktails/" + cocktail._id}>
                     <h3>{cocktail.name}</h3>
-                    <img src={cocktail.imageUrl}/>
+                    <img src={cocktail.imageUrl} width={100}/>
                     {/* <h3>{cocktail.category}</h3>
                     <h3>{cocktail.description}</h3>
                     <h3>{cocktail.steps}</h3> */}
