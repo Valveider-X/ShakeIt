@@ -21,12 +21,16 @@ function CocktailDetails() {
     useContext(AuthContext);
 
   const [cocktailDetails, setCocktailDetails] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     const pillarData = async () => {
       try {
         const response = await service.get(`/cocktails/${params.cocktailId}`);
         setCocktailDetails(response.data);
+      /*   const favResponse = await service.get(`/user/favorites`)
+        const isFav = favResponse.data.some(fav => fav._id === params.cocktailId)
+        setIsFavorite(isFav) */
       } catch (error) {
         console.log(error);
       }
@@ -40,7 +44,8 @@ function CocktailDetails() {
   const favCocktail = async () =>{
     try {
       await service.patch(`/user/${params.cocktailId}/fav`)
-      navigate("/cocktails")
+      setIsFavorite((prevIsFavorite)=> !prevIsFavorite)
+    
 
       
     } catch (error) {
@@ -94,57 +99,28 @@ function CocktailDetails() {
               <Comment cocktailId={cocktailDetails._id}/>
             </CardContent>
           </Card>
+
+          <Box mt={2}>
           {isLoggedIn &&
         loggedUserId === cocktailDetails.owner._id && (
-          <Box mt={2}>
+          <>
             <IconButton onClick={deleteCocktail} aria-label="delete">
               <Delete />
             </IconButton>
             <IconButton onClick={()=> navigate(`/cocktail/${cocktailDetails._id}/edit`)} aria-label="edit">
               <Edit />
             </IconButton>
+            </>
+        )}
+        {isLoggedIn && (
             <IconButton onClick={favCocktail} aria-label="favorite">
-              <Favorite />
+              <Favorite sx={{color: isFavorite ? "orange" : "inherit" }}/>
             </IconButton>
+        )}
             </Box>
-        )}
-        </Box>
+          </Box>
       )}
-      {!cocktailDetails && <Typography variant="h6">Loading...</Typography>}
       </Box>
-        
-         /*  <>
-            <button onClick={deleteCocktail}>Delete</button>
-            <button
-              onClick={() => navigate(`/cocktail/${cocktailDetails._id}/edit`)}
-            >
-              Editar
-            </button>
-            <button onClick={favCocktail}>Favorites</button>
-
-            <div>
-              <h3>{cocktailDetails.name}</h3>
-              <img src={cocktailDetails.imageUrl} width={200} />
-              <h6>{cocktailDetails.category}</h6>
-              <h6>{cocktailDetails.description}</h6>
-              <h6>{cocktailDetails.steps}</h6>
-              {cocktailDetails.ingredients.map((eachIngredient, index) => {
-                return (
-                  <div key={index}>
-                    <h6>{`Ingredient: ${eachIngredient.name}`}</h6>
-                    <h6>{`Description: ${eachIngredient.description}`}</h6>
-                    <h6>{`Has alcohol: ${
-                      eachIngredient.hasAlcohol ? "yes" : "no"
-                    }`}</h6>
-                    <h6>{`Percentage of alcohol: ${eachIngredient.alcoholGraduation}`}</h6>
-                  </div>
-                );
-              })}
-              <Comment cocktailId={cocktailDetails._id} />
-            </div>
-          </>
-        )}
-    </div> */
   );
 }
 

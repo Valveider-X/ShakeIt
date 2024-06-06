@@ -33,6 +33,7 @@ function Comment() {
   async function pillarData() {
     try {
       const response = await service.get(`/comments/${params.cocktailId}`);
+      console.log(response.data);
       setComments(response.data);
     } catch (error) {
       console.log(error);
@@ -84,7 +85,7 @@ function Comment() {
         description: commentValue,
       };
       await service.post("/comments", newComment);
-      pillarData();f
+      pillarData();
 
       setCommentValue("");
     } catch (error) {
@@ -124,7 +125,29 @@ function Comment() {
 
   return (
     <Box>
-      <Typography variant="h4">Add Comment</Typography>
+      <Typography variant="h5">Comments</Typography>
+      <Box sx={{listStyle: "none"}}>
+        {comments.map((comment) => (
+          <Box key={comment._id} sx={{ my: 1 }}>
+            <ListItem disablePadding >
+              <ListItemText primary={comment.description} secondary={`By: ${comment.user.username}`} />
+              {isLoggedIn && (
+                <ListItemSecondaryAction>
+                  <IconButton onClick={() => handleDelete(comment)}>
+                    <Delete />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              )}
+            </ListItem>
+            <Divider />
+          </Box>
+        ))}
+      </Box>
+
+      <Divider sx={{ my: 2 }} />
+
+
+      <Typography variant="h5">Add Comment</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           label="Comment"
@@ -139,26 +162,9 @@ function Comment() {
         </Button>
       </form>
 
-      <Divider sx={{ my: 2 }} />
+     
 
-      <Typography variant="h4">Comments</Typography>
-      <Box>
-        {comments.map((comment) => (
-          <Box key={comment._id} sx={{ my: 1 }}>
-            <ListItem disablePadding>
-              <ListItemText primary={comment.description} />
-              {isLoggedIn && (
-                <ListItemSecondaryAction>
-                  <IconButton onClick={() => handleDelete(comment)}>
-                    <Delete />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              )}
-            </ListItem>
-            <Divider />
-          </Box>
-        ))}
-      </Box>
+      
     </Box>
   );
 }

@@ -197,8 +197,8 @@ function MakeCocktail() {
         value={categoryValue}
         onChange={(e) => setCategoryValue(e.target.value)}
         displayEmpty
-        x={{ mb: 2, backgroundColor: '#323232', '&:hover': { backgroundColor: '#323232' , opacity: 1 } }}
-        
+        sx={{ mb: 5, backgroundColor: '#323232', '&hover': { backgroundColor: '#323232' , opacity: 1 } }}
+        gutterBottom
       >
         <MenuItem value="" disabled >
           Select a category

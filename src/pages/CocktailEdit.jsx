@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 import service from "../services/config.services";
 import { useNavigate, useParams } from "react-router-dom";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import cocktailCategories from "../data/categories-cocktail.json"
 
 function CocktailEdit() {
     const navigate = useNavigate()
 
     const params = useParams()
+  const [categoryValue, setCategoryValue] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -70,15 +78,25 @@ function CocktailEdit() {
       </label>
       <br />
       {/* //todo hacer esto como un select de todas las categories. con el json. En el select pones la preseleccionada*/}
-      <label>
-        Category:
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-        />
-      </label>
+      <Select
+        label="Category"
+        variant="outlined"
+        fullWidth
+        value={categoryValue}
+        onChange={(e) => setCategoryValue(e.target.value)}
+        displayEmpty
+        x={{ mb: 2, backgroundColor: '#323232', '&:hover': { backgroundColor: '#323232' , opacity: 1 } }}
+        
+      >
+        <MenuItem value="" disabled >
+          Select a category
+        </MenuItem>
+        {cocktailCategories.map((eachCategory) => (
+          <MenuItem key={eachCategory} value={eachCategory} sx={{ backgroundColor: '#323232', opacity: 1 }}>
+            {eachCategory}
+          </MenuItem>
+        ))}
+      </Select>
       <br />
       <label>
         Description:
