@@ -12,6 +12,13 @@ import {
 } from "@mui/material";
 import { AuthContext } from "../context/auth.context";
 import cocktailCategories from "../data/categories-cocktail.json"
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import { AddAPhoto } from "@mui/icons-material";
 
 function MakeCocktail() {
 
@@ -138,114 +145,143 @@ function MakeCocktail() {
   };
 
   return (
-    <div>
-        <label>Image: </label>
-        <input
-          type="file"
-          name="image"
-          onChange={handleFileUpload}
-          disabled={isUploading}
-        />
-        {/* below disabled prevents the user from attempting another upload while one is already happening */}
-        {/* to render a loading message or spinner while uploading the picture */}
-      {isUploading ? <h3>... uploading image</h3> : null}
-
-      {/* below line will render a preview of the image from cloudinary */}
-      {imageUrl ? (
-        <div>
-          <img src={imageUrl} alt="img" width={150} />
-        </div>
-      ) : null}
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+    <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+    <Typography variant="h4" mb={2}>
+      Create a New Cocktail
+    </Typography>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      width="100%"
+      maxWidth="600px"
+    >
+      <Box mb={2} width="100%">
+        <Button
+          variant="contained"
+          component="label"
+          startIcon={<AddAPhoto />}
+          fullWidth
+        >
+          Upload Image
           <input
-            name="name"
-            type="text"
-            value={nameValue}
-            onChange={(e) => setNameValue(e.target.value)}
+            type="file"
+            hidden
+            onChange={handleFileUpload}
+            disabled={isUploading}
           />
-        </label>
+        </Button>
+        {isUploading && <CircularProgress sx={{ mt: 2 }} />}
+        {imageUrl && (
+          <Box mt={2}>
+            <img src={imageUrl} alt="Cocktail" width="100%" />
+          </Box>
+        )}
+      </Box>
 
-        <br />
+      <TextField
+        label="Name"
+        variant="outlined"
+        fullWidth
+        value={nameValue}
+        onChange={(e) => setNameValue(e.target.value)}
+        sx={{ mb: 2 }}
+      />
 
-        <label>
-          Category:
-          <select
-            name="category"
-            type="text"
-            value={categoryValue}
-            onChange={(e) => setCategoryValue(e.target.value)}
-          >
-            {cocktailCategories.map((eachCategory) => {
-              return <option value={eachCategory}>{eachCategory}</option>
-            })}
-          </select>
-        </label>
+      <Select
+        label="Category"
+        variant="outlined"
+        fullWidth
+        value={categoryValue}
+        onChange={(e) => setCategoryValue(e.target.value)}
+        displayEmpty
+        x={{ mb: 2, backgroundColor: '#323232', '&:hover': { backgroundColor: '#323232' , opacity: 1 } }}
+        
+      >
+        <MenuItem value="" disabled >
+          Select a category
+        </MenuItem>
+        {cocktailCategories.map((eachCategory) => (
+          <MenuItem key={eachCategory} value={eachCategory} sx={{ backgroundColor: '#323232', opacity: 1 }}>
+            {eachCategory}
+          </MenuItem>
+        ))}
+      </Select>
 
-        <br />
+      <TextField
+        label="Description"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        value={descriptionValue}
+        onChange={(e) => setDescriptionValue(e.target.value)}
+        sx={{ mb: 2 }}
+      />
 
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={descriptionValue}
-            onChange={(e) => setDescriptionValue(e.target.value)}
-          />
-        </label>
+      <Button
+        variant="contained"
+        onClick={handleOpenDialog}
+        sx={{ mb: 2 }}
+        fullWidth
+      >
+        Select Ingredients
+      </Button>
 
-        <br />
+      {ingredientsValue.length > 0 && (
+        <Box mb={2} width="100%">
+          {ingredientsValue.map((ingredient, index) => (
+            <Chip key={index} label={ingredient} sx={{ mr: 1, mb: 1 }} />
+          ))}
+        </Box>
+      )}
 
-        <label>
-          Ingredients:
-          <button type="button" onClick={handleOpenDialog}>
-            Select Ingredients
-          </button>
-          {ingredientsValue.length > 0 && ( //SI la longitud tiene almenos 1 elemento, renderiza los chips(no sale)
-            <Chip label={ingredientsValue.join(", ")} /> //concatena los nombres de los elementos iterados del map //meterlo en useState
-          )}
-          <Dialog open={openDialog} onClose={handleCloseDialog}>
-            <button onClick={handleAcceptIngredients}>
-              Accept Ingredients
-            </button>
-            <DialogTitle>Select Ingredients</DialogTitle>
-            <DialogContent>
-              <Box sx={{ maxHeight: 400, overflow: "auto" }}>
-                {ingredientsOptions &&
-                  ingredientsOptions.map((ingredient) => (
-                    <div key={ingredient._id}>
-                      <Typography>{ingredient.name}</Typography>
-                      <input
-                        type="checkbox"
-                        value={ingredient._id}
-                        onChange={handleIngrChange}
-                      />
-                    </div>
-                  ))}
+      <Dialog open={openDialog} onClose={handleCloseDialog } PaperProps={{ sx: { backgroundColor: 'rgba(50, 50, 50, 1)' } }}>
+        <DialogTitle>Select Ingredients</DialogTitle>
+        <DialogContent>
+          <Box sx={{ maxHeight: 400, overflow: "auto" }}>
+            {ingredientsOptions.map((ingredient) => (
+              <Box key={ingredient._id} display="flex" alignItems="center" mb={1}>
+                <Typography>{ingredient.name}</Typography>
+                <input
+                  type="checkbox"
+                  value={ingredient._id}
+                  onChange={handleIngrChange}
+                  style={{ marginLeft: "auto" }}
+                />
               </Box>
-            </DialogContent>
-          </Dialog>
+            ))}
+          </Box>
+          <Button
+            onClick={handleAcceptIngredients}
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            Accept Ingredients
+          </Button>
+        </DialogContent>
+      </Dialog>
 
-        </label>
+      <TextField
+        label="Steps"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        value={stepsValue}
+        onChange={(e) => setStepsValue(e.target.value)}
+        sx={{ mb: 2 }}
+      />
 
-        <br />
-
-        <label>
-          Steps:
-          <textarea
-            name="steps"
-            value={stepsValue}
-            onChange={(e) => setStepsValue(e.target.value)}
-          />
-        </label>
-
-        <br />
-
-        <button type="submit">Make Cocktail</button>
-      </form>
-    </div>
-  );
+      <Button type="submit" variant="contained" color="primary" fullWidth>
+        Make Cocktail
+      </Button>
+    </Box>
+  </Box>
+);
 }
 
 export default MakeCocktail;

@@ -1,8 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-useState
 import { Link } from 'react-router-dom'
 import service from '../services/config.services'
+//MUI
+import Grid from '@mui/system/Unstable_Grid/Grid'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+/* import Link from '@mui/material/Link' */
 
 
 function CocktailList() {
@@ -25,24 +32,50 @@ if (cocktailList === null){
     return <h3>Esperando</h3>
 }
   return (
-    <div>
-        {cocktailList.map((cocktail, i)=>{
-            return(
-                <div key={i}>
-                    <Link to={"/cocktails/" + cocktail._id}>
-                    <h3>{cocktail.name}</h3>
-                    <img src={cocktail.imageUrl} width={100}/>
-                    {/* <h3>{cocktail.category}</h3>
-                    <h3>{cocktail.description}</h3>
-                    <h3>{cocktail.steps}</h3> */}
-                   {/* <h3>{cocktail.ingredients}</h3>
-                    <h3>{cocktail.owner}</h3>  */}
-                    </Link>
+    
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4, p: 2 }}>
+        {cocktailList.map((cocktail, i)=>(
+           
+                <Card key={i} sx={{
+                    bgcolor: 'rgba(255, 255, 255, 0.05)',
+                    border: ' 1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: 4,
+                    transition: "transform 0.3s ease-in-out",
+                    '&:hover':{
+                        transform: "scale(1.05)"
+                    },
+                    width: 345,
+                }}>
+                    <Link to={`/cocktails/${cocktail._id}`} sx={{ textDecoration: 'none', color: 'inherit' }}>
+                    <CardMedia
+                    component="img"
+                    height="140"
+                    image={cocktail.imageUrl}
+                    alt={cocktail.name}
+                    sx={{
+                        filter: 'brightness(0.8) contrast(1.2)', 
+                        transition: 'filter 0.3s ease-in-out',
+                        '&:hover': {
+                            filter: 'brightness(1) contrast(1.2)'
+                    }
+                }}
+                />
+                <CardContent>
+                    <Typography variant="h5" component="div" color="primary">
+                        {cocktail.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {cocktail.description}
+                    </Typography>
+                </CardContent>
+                </Link>
+                </Card>
 
-                </div>
-            )
-        })}
-    </div>
+
+        ))}
+        
+</Box>
+              
   )
 }
 

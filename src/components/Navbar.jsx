@@ -82,6 +82,7 @@ function Navbar({darkMode, handleThemeChange}) {
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
+
         <List>
         <img className="shake" src={logo} width={"120px"}/>
           <ListItem button component={Link} to="/create-cocktail">
@@ -123,7 +124,7 @@ function Navbar({darkMode, handleThemeChange}) {
 
 
   return (
-    <Box sx={{ flexGrow: 1, width: "70vw" }}>
+    <Box sx={{ flexGrow: 1}}>
     <AppBar position="static">
       <Toolbar>
         <IconButton

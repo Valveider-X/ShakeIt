@@ -5,6 +5,15 @@ import Comment from "../components/Comment";
 import service from "../services/config.services";
 import { AuthContext } from "../context/auth.context";
 
+//MUI
+import { Box } from "@mui/system";
+import { Button, CardContent, CardMedia, IconButton } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Card } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
+
 function CocktailDetails() {
   const params = useParams();
   const navigate = useNavigate();
@@ -52,12 +61,59 @@ function CocktailDetails() {
   };
 
   return (
-    <div>
-      {/* Porque funciona con ===????? preguntar a Jorge*/}
-      {cocktailDetails &&
-        isLoggedIn &&
+    <Box display="flex" flexDirection="column" alignItems="center">
+      {cocktailDetails && (
+        <Box maxWidth="600px" width="100%" mt={2}>
+          <Card>
+            <CardMedia
+              component="img"
+              height="400"
+              image={cocktailDetails.imageUrl}
+              alt={cocktailDetails.name}
+              />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {cocktailDetails.name}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary">
+                {cocktailDetails.category}
+              </Typography>
+              <Typography variant="body1">{cocktailDetails.description}</Typography>
+              <Typography variant="body2">{cocktailDetails.steps}</Typography>
+              <Box mt={2}>
+                {cocktailDetails.ingredients.map((ingredient, i)=>(
+                  <Box key={i} mb={1}>
+                    <Typography variant="body1" component="span">
+                      {`Ingredient: ${ingredient.name}, `}
+                    </Typography>
+                    <Typography variant="body1" component="span">{`Description: ${ingredient.description},`} </Typography>
+                    <Typography variant="body1" component="span">{`Percentage of alcohol: ${ingredient.alcoholGraduation}` }</Typography>
+                    </Box>
+                ))}
+              </Box>
+              <Comment cocktailId={cocktailDetails._id}/>
+            </CardContent>
+          </Card>
+          {isLoggedIn &&
         loggedUserId === cocktailDetails.owner._id && (
-          <>
+          <Box mt={2}>
+            <IconButton onClick={deleteCocktail} aria-label="delete">
+              <Delete />
+            </IconButton>
+            <IconButton onClick={()=> navigate(`/cocktail/${cocktailDetails._id}/edit`)} aria-label="edit">
+              <Edit />
+            </IconButton>
+            <IconButton onClick={favCocktail} aria-label="favorite">
+              <Favorite />
+            </IconButton>
+            </Box>
+        )}
+        </Box>
+      )}
+      {!cocktailDetails && <Typography variant="h6">Loading...</Typography>}
+      </Box>
+        
+         /*  <>
             <button onClick={deleteCocktail}>Delete</button>
             <button
               onClick={() => navigate(`/cocktail/${cocktailDetails._id}/edit`)}
@@ -88,7 +144,7 @@ function CocktailDetails() {
             </div>
           </>
         )}
-    </div>
+    </div> */
   );
 }
 

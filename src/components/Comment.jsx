@@ -3,6 +3,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import service from "../services/config.services";
+import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import IconButton from "@mui/material/IconButton";
+import { Delete } from "@mui/icons-material";
 
 function Comment() {
   const params = useParams();
@@ -58,6 +68,7 @@ function Comment() {
 
       await service.delete(`/comments/${comment._id}`);
       pillarData();
+      
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +84,7 @@ function Comment() {
         description: commentValue,
       };
       await service.post("/comments", newComment);
-      pillarData();
+      pillarData();f
 
       setCommentValue("");
     } catch (error) {
@@ -112,31 +123,45 @@ function Comment() {
   };*/
 
   return (
-    <div>
-      <h2>Add Comment</h2>
+    <Box>
+      <Typography variant="h4">Add Comment</Typography>
       <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input type="text" value={commentValue} onChange={handleChange} />
-
-        <button type="submit">Add Comment</button>
+        <TextField
+          label="Comment"
+          variant="outlined"
+          fullWidth
+          value={commentValue}
+          onChange={handleChange}
+          sx={{ mb: 2 }}
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Add Comment
+        </Button>
       </form>
 
-      <h2>Comments:</h2>
-      <ul>
+      <Divider sx={{ my: 2 }} />
+
+      <Typography variant="h4">Comments</Typography>
+      <Box>
         {comments.map((comment) => (
-          <li key={comment._id}>
-            <p>{comment.description}</p>
-
-              <div>
-                {/*<button onClick={() => handleEdit(comment)}>Edit</button>*/}
-                <button onClick={() => handleDelete(comment)}>Delete</button>
-              </div>
-
-          </li>
+          <Box key={comment._id} sx={{ my: 1 }}>
+            <ListItem disablePadding>
+              <ListItemText primary={comment.description} />
+              {isLoggedIn && (
+                <ListItemSecondaryAction>
+                  <IconButton onClick={() => handleDelete(comment)}>
+                    <Delete />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              )}
+            </ListItem>
+            <Divider />
+          </Box>
         ))}
-      </ul>
-    </div>
+      </Box>
+    </Box>
   );
 }
+
 
 export default Comment;
