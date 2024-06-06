@@ -13,6 +13,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import IconButton from "@mui/material/IconButton";
 import { Delete } from "@mui/icons-material";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 function Comment() {
   const params = useParams();
@@ -25,6 +27,7 @@ function Comment() {
   const [comments, setComments] = useState([]);
   //valor comentario
   const [commentValue, setCommentValue] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
     pillarData();
@@ -69,7 +72,6 @@ function Comment() {
 
       await service.delete(`/comments/${comment._id}`);
       pillarData();
-      
     } catch (error) {
       console.log(error);
     }
@@ -123,15 +125,19 @@ function Comment() {
     }
   };*/
 
+
   return (
     <Box>
       <Typography variant="h5">Comments</Typography>
-      <Box sx={{listStyle: "none"}}>
+      <Box sx={{ listStyle: "none" }}>
         {comments.map((comment) => (
           <Box key={comment._id} sx={{ my: 1 }}>
-            <ListItem disablePadding >
-              <ListItemText primary={comment.description} secondary={`By: ${comment.user.username}`} />
-              {isLoggedIn && (
+            <ListItem disablePadding>
+              <ListItemText
+                primary={comment.description}
+                secondary={`By: ${comment.user.username}`}
+              />
+              {isLoggedIn && comment.user._id === loggedUserId &&(
                 <ListItemSecondaryAction>
                   <IconButton onClick={() => handleDelete(comment)}>
                     <Delete />
@@ -146,7 +152,6 @@ function Comment() {
 
       <Divider sx={{ my: 2 }} />
 
-
       <Typography variant="h5">Add Comment</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -156,18 +161,23 @@ function Comment() {
           value={commentValue}
           onChange={handleChange}
           sx={{ mb: 2 }}
+          disabled={!isLoggedIn}
         />
-        <Button type="submit" variant="contained" color="primary">
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={!isLoggedIn}
+        >
           Add Comment
         </Button>
+        {!isLoggedIn && (
+          <p>You must be logged to comment</p>
+        )}
       </form>
-
-     
-
       
     </Box>
   );
 }
-
 
 export default Comment;

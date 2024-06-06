@@ -28,9 +28,7 @@ function CocktailDetails() {
       try {
         const response = await service.get(`/cocktails/${params.cocktailId}`);
         setCocktailDetails(response.data);
-      /*   const favResponse = await service.get(`/user/favorites`)
-        const isFav = favResponse.data.some(fav => fav._id === params.cocktailId)
-        setIsFavorite(isFav) */
+      setIsFavorite(response.data.isFavorite)
       } catch (error) {
         console.log(error);
       }
@@ -49,6 +47,7 @@ function CocktailDetails() {
 
       
     } catch (error) {
+      console.log(error);
       
     }
   }

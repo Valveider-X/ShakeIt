@@ -85,9 +85,11 @@ function Navbar({darkMode, handleThemeChange}) {
 
         <List>
         <img className="shake" src={logo} width={"120px"}/>
+        {isLoggedIn && (
           <ListItem button component={Link} to="/create-cocktail">
             <ListItemText primary="Crea tu Cocktail" />
           </ListItem>
+          )}
             <ListItem button component={Link} to="/cocktails">
               <ListItemText primary="Lista de Cocktails" />
             </ListItem>
@@ -137,7 +139,7 @@ function Navbar({darkMode, handleThemeChange}) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography className="shake" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography className="shake" variant="h4" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{color: 'inherit'}}>
         Shake It!
         </Link>
@@ -151,6 +153,7 @@ function Navbar({darkMode, handleThemeChange}) {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
+              sx={{position: "relative"}}
             >
               <LocalBarIcon />
             </IconButton>
@@ -158,24 +161,32 @@ function Navbar({darkMode, handleThemeChange}) {
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'right',
               }}
-              keepMounted
               transformOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
+              sx={{marginTop:"9px"}}
             >
+              {isLoggedIn ? (
+                <>
               <MenuItem onClick={handleClose}><Link to="/profile">Profile</Link></MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
               <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+              </>
+              ) : (
+                <>
+              <MenuItem onClick={handleClose}><Link to="/signup">Sign In</Link></MenuItem>
+              <MenuItem onClick={handleLogOut}><Link to="/login">Log In</Link></MenuItem>
+              </>
+              )}
             </Menu>
       </Toolbar>
     </AppBar>
-    <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+    <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} sx={{ position: "absolute"}}>
       {drawer}
     </Drawer>
   </Box>

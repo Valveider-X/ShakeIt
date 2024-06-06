@@ -2,6 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import service from "../../services/config.services";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
+import { Button } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 function Signup(){
     const navigate = useNavigate()
@@ -35,53 +39,67 @@ function Signup(){
         }
     }
     return(
-        <div>
+      <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Formulario de Registro
+      </Typography>
 
-      <h1>Formulario de Registro</h1>
-    
-      <form onSubmit={handleSignup}>
-
-        <label>Correo Electronico:</label>
-        <input
+      <form onSubmit={handleSignup} style={{ width: "300px" }}>
+        <TextField
+          label="Correo Electrónico"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           type="email"
-          name="email"
           value={email}
           onChange={handleEmailChange}
         />
 
-        <br />
-
-        <label>Nombre de usuario:</label>
-        <input
+        <TextField
+          label="Nombre de Usuario"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           type="text"
-          name="username"
           value={username}
           onChange={handleUsernameChange}
         />
 
-        <br />
-
-
-
-        
-
-        <label>Contraseña:</label>
-        <input
+        <TextField
+          label="Contraseña"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           type="password"
-          name="password"
           value={password}
           onChange={handlePasswordChange}
         />
 
-        <br />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 2 }}
+        >
+          Registrar
+        </Button>
 
-        <button type="submit">Registrar</button>
-
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && (
+          <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
       </form>
-      
-    </div>
-
-    )
+    </Box>
+  );
 }
 export default Signup

@@ -13,6 +13,8 @@ import IngredientsList from './components/IngredientsList'
 import CocktailList from './pages/CocktailList'
 import CocktailDetails from './pages/CocktailDetails'
 import CocktailIce from './pages/CocktailIce'
+import OnlyPrivate from './components/OnlyPrivate'
+
 
 //MUI
 import { Container, Box, Typography, CssBaseline } from '@mui/material';
@@ -119,11 +121,11 @@ function App() {
       <Route path="/ingredients" element={<IngredientsList />}/>
       <Route path="/cocktails" element={<CocktailList />}/>
       <Route path="/cocktails/:cocktailId" element={<CocktailDetails />}/>
-      <Route path="/cocktail/:cocktailId/edit" element={<CocktailEdit />}/>
+      <Route path="/cocktail/:cocktailId/edit" element={<OnlyPrivate><CocktailEdit /></OnlyPrivate>}/>
       <Route path="/articles/ice" element={<CocktailIce />}/>
       <Route path="/articles/utensils" element={<CocktailUtensils />}/>
       <Route path="/articles/techniques" element={<CocktailsTechniques />}/>
-      <Route path="/create-cocktail" element={<MakeCocktail />}/>
+      <Route path="/create-cocktail" element={<OnlyPrivate><MakeCocktail /></OnlyPrivate>}/>
       <Route path="/bars" element={<CocktailMap />} />
 
       {/* error FE routes here... */}

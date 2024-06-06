@@ -8,6 +8,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import cocktailCategories from "../data/categories-cocktail.json"
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 function CocktailEdit() {
     const navigate = useNavigate()
@@ -66,25 +69,24 @@ function CocktailEdit() {
   };
 
   return (
-    <div>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      {/* //todo hacer esto como un select de todas las categories. con el json. En el select pones la preseleccionada*/}
-      <Select
-        label="Category"
+<Box sx={{ p: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Edit Cocktail
+      </Typography>
+      <TextField
+        label="Name"
         variant="outlined"
         fullWidth
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        sx={{ mb: 2 }}
+      />
+      <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Category</InputLabel>
+      <Select
         value={categoryValue}
         onChange={(e) => setCategoryValue(e.target.value)}
-        displayEmpty
         x={{ mb: 2, backgroundColor: '#323232', '&:hover': { backgroundColor: '#323232' , opacity: 1 } }}
         
       >
@@ -97,32 +99,40 @@ function CocktailEdit() {
           </MenuItem>
         ))}
       </Select>
-      <br />
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <label>
-        Steps:
-        <textarea
-          name="steps"
-          value={formData.steps}
-          onChange={handleInputChange}
-        />
-      </label>
-
-      <br />
-      <button type="button" onClick={handleSave}>Save Changes</button>
-    </div>
+      </FormControl>
+      <TextField
+        label="Description"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        name="description"
+        value={formData.description}
+        onChange={handleInputChange}
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="Steps"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        name="steps"
+        value={formData.steps}
+        onChange={handleInputChange}
+        sx={{ mb: 2 }}
+      />
+      <Stack direction="row" spacing={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+        >
+          Save Changes
+        </Button>
+      </Stack>
+    </Box>
   );
 }
-
-//todo los ingredientes se modifican por sparado en otra pagina
-//todo imagene se modifica en otra parte, no es el mismo formulario
 
 export default CocktailEdit;

@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Axios } from "axios";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config.services";
+import { Box } from "@mui/system";
+import { Button } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 function Login(){
     const {authenticateUser} = useContext(AuthContext)
@@ -41,38 +45,57 @@ function Login(){
         }
     }
     return (
-        <div>
+      <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+<Typography variant="h4" gutterBottom>
+        Formulario de Acceso
+      </Typography>
 
-      <h1>Formulario de Acceso</h1>
-
-      <form onSubmit={handleLogin}>
-        <label>Correo Electronico:</label>
-        <input
+      <form onSubmit={handleLogin} style={{ width: "300px" }}>
+        <TextField
+          label="Correo Electrónico"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           type="email"
-          name="email"
           value={email}
           onChange={handleEmailChange}
         />
 
-        <br />
-
-        <label>Contraseña:</label>
-        <input
+        <TextField
+          label="Contraseña"
+          variant="outlined"
+          fullWidth
+          margin="normal"
           type="password"
-          name="password"
           value={password}
           onChange={handlePasswordChange}
         />
 
-        <br />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 2 }}
+        >
+          Acceder
+        </Button>
 
-        <button type="submit">Acceder</button>
-
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && (
+          <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
       </form>
-      
-    </div>
-
-    )
+    </Box>
+  );
 }
 export default Login
