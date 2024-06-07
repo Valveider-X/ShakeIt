@@ -67,6 +67,7 @@ const items = [
     link: "/articles/techniques",
   },
 ];
+//de prueba
 
 function HomeCarousel() {
   return (
