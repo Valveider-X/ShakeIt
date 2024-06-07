@@ -40,27 +40,31 @@ const items = [
     title: "Make your Cocktail",
     description: "Create your own cocktail with our ingredients",
     image: makeCocktail,
-    link: "/make-cocktail",
+    link: "/create-cocktail",
   },
   {
     title: "Cocktail List",
     description: "Explore our list of cocktails",
     image: cocktailList,
+    link: "/cocktails",
   },
   {
     title: "Ice",
     description: "Learn about the importance of ice in cocktails",
     image: ice,
+    link: "/articles/ice",
   },
   {
     title: "Tools",
     description: "Discover the essential tools for mixing cocktails",
     image: tools,
+    link: "/articles/utensils",
   },
   {
     title: "Techniques",
     description: "Master the art of mixing cocktails with our techniques",
     image: techniques,
+    link: "/articles/techniques",
   },
 ];
 
