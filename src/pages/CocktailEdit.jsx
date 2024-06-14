@@ -7,15 +7,15 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import cocktailCategories from "../data/categories-cocktail.json"
+import cocktailCategories from "../data/categories-cocktail.json";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 function CocktailEdit() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const params = useParams()
+  const params = useParams();
   const [categoryValue, setCategoryValue] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -40,7 +40,7 @@ function CocktailEdit() {
           imageUrl: response.data.imageUrl,
         });
       } catch (error) {
-        console.log(error);
+        navigate("/error");
       }
     };
     pillarData();
@@ -50,9 +50,7 @@ function CocktailEdit() {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
-  /*   const handleEdit = () => {
-        setEditing(true);
-      }; */
+
   const handleSave = async () => {
     try {
       await service.put(
@@ -61,15 +59,14 @@ function CocktailEdit() {
         }`,
         formData
       );
-      navigate(`/cocktails/${params.cocktailId}`)
-      
+      navigate(`/cocktails/${params.cocktailId}`);
     } catch (error) {
-      console.log(error);
+      navigate("/error");
     }
   };
 
   return (
-<Box sx={{ p: 3 }}>
+    <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
         Edit Cocktail
       </Typography>
@@ -84,21 +81,28 @@ function CocktailEdit() {
       />
       <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
         <InputLabel>Category</InputLabel>
-      <Select
-        value={categoryValue}
-        onChange={(e) => setCategoryValue(e.target.value)}
-        x={{ mb: 2, backgroundColor: '#323232', '&:hover': { backgroundColor: '#323232' , opacity: 1 } }}
-        
-      >
-        <MenuItem value="" disabled >
-          Select a category
-        </MenuItem>
-        {cocktailCategories.map((eachCategory) => (
-          <MenuItem key={eachCategory} value={eachCategory} sx={{ backgroundColor: '#323232', opacity: 1 }}>
-            {eachCategory}
+        <Select
+          value={categoryValue}
+          onChange={(e) => setCategoryValue(e.target.value)}
+          x={{
+            mb: 2,
+            backgroundColor: "#323232",
+            "&:hover": { backgroundColor: "#323232", opacity: 1 },
+          }}
+        >
+          <MenuItem value="" disabled>
+            Select a category
           </MenuItem>
-        ))}
-      </Select>
+          {cocktailCategories.map((eachCategory) => (
+            <MenuItem
+              key={eachCategory}
+              value={eachCategory}
+              sx={{ backgroundColor: "#323232", opacity: 1 }}
+            >
+              {eachCategory}
+            </MenuItem>
+          ))}
+        </Select>
       </FormControl>
       <TextField
         label="Description"
@@ -123,11 +127,7 @@ function CocktailEdit() {
         sx={{ mb: 2 }}
       />
       <Stack direction="row" spacing={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSave}
-        >
+        <Button variant="contained" color="primary" onClick={handleSave}>
           Save Changes
         </Button>
       </Stack>

@@ -72,40 +72,49 @@ const items = [
 function HomeCarousel() {
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="md" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-      <Box sx={{ width: '80%', maxWidth: 800}}>
-        <Carousel
-        animation="fade"
-        duration={800}
-        indicators={true}
-        navButtonsAlwaysVisible={true}
-        navButtonsProps={{
-          style: {
-            backgroundColor: 'orange',
-            color: 'white',
-          },
-        }}>
-          {items.map((item, index) => (
-            <Card key={index} sx={{ margin: 2 }}>
-              <Link to={item.link || "#"} style={{ textDecoration: 'none' }}>
-              <CardMedia
-                  component="img"
-                  height="600"
-                  image={item.image}
-                  alt={item.title}
-                />
-                <CardContent >
-                  <Typography variant="h5" component="h3" color="orange">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="orange">
-                    {item.description}
-                  </Typography>
-                </CardContent>
-              </Link>
-            </Card>
-          ))}
-        </Carousel>
+      <Container
+        maxWidth="md"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <Box sx={{ width: "80%", maxWidth: 800 }}>
+          <Carousel
+            animation="fade"
+            duration={800}
+            indicators={true}
+            navButtonsAlwaysVisible={true}
+            navButtonsProps={{
+              style: {
+                backgroundColor: "orange",
+                color: "white",
+              },
+            }}
+          >
+            {items.map((item, index) => (
+              <Card key={index} sx={{ margin: 2 }}>
+                <Link to={item.link || "#"} style={{ textDecoration: "none" }}>
+                  <CardMedia
+                    component="img"
+                    height="600"
+                    image={item.image}
+                    alt={item.title}
+                  />
+                  <CardContent>
+                    <Typography variant="h5" component="h3" color="orange">
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body2" color="orange">
+                      {item.description}
+                    </Typography>
+                  </CardContent>
+                </Link>
+              </Card>
+            ))}
+          </Carousel>
         </Box>
       </Container>
     </ThemeProvider>

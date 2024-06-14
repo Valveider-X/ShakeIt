@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Axios } from "axios";
 import { AuthContext } from "../../context/auth.context";
 import service from "../../services/config.services";
 import { Box } from "@mui/system";
@@ -8,44 +7,39 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-function Login(){
-    const {authenticateUser} = useContext(AuthContext)
-    const navigate = useNavigate()
+function Login() {
+  const { authenticateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const[email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [errorMessage, setErrorMessage]= useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleEmailChange = (e) => setEmail(e.target.value)
-    const handlePasswordChange = (e) => setPassword(e.target.value)
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-    const handleLogin = async (e) => {
-        e.preventDefault()
-    
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     const userCredentials = {
-        email: email,
-        password: password
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await service.post("auth/login", userCredentials);
 
-        }
-        try {
-            const response = await service.post("auth/login", userCredentials)
-            console.log(response)
+      localStorage.setItem("authToken", response.data.authToken);
+      authenticateUser();
 
-            localStorage.setItem("authToken", response.data.authToken)
-            authenticateUser()
-
-            navigate("/")
-            
-        } catch (error) {
-            console.log(error)
-            if(error.response.status === 400){
-                setErrorMessage(error.response.data.errorMessage)
-            }
-            
-        }
+      navigate("/");
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      }
     }
-    return (
-      <Box
+  };
+  return (
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -54,8 +48,8 @@ function Login(){
         height: "100vh",
       }}
     >
-<Typography variant="h4" gutterBottom>
-        Formulario de Acceso
+      <Typography variant="h4" gutterBottom>
+        Login Form
       </Typography>
 
       <form onSubmit={handleLogin} style={{ width: "300px" }}>
@@ -86,7 +80,7 @@ function Login(){
           fullWidth
           sx={{ mt: 2 }}
         >
-          Acceder
+          Let's make some Cocktails
         </Button>
 
         {errorMessage && (
@@ -98,4 +92,4 @@ function Login(){
     </Box>
   );
 }
-export default Login
+export default Login;

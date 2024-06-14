@@ -1,22 +1,22 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import shaker from "/images/shaker.jpg"
-import jigger from "/images/jigger.jpg"
-import mixing from "/images/mixing.jpg"
-import barSpoon from "/images/spoon.jpg"
-import strainer from "/images/strainer.jpg"
-import muddler from "/images/muddler.webp"
-import juicer from "/images/juicer.jpg"
-import peeler from "/images/peeler.jpg"
+import shaker from "/images/shaker.jpg";
+import jigger from "/images/jigger.jpg";
+import mixing from "/images/mixing.jpg";
+import barSpoon from "/images/spoon.jpg";
+import strainer from "/images/strainer.jpg";
+import muddler from "/images/muddler.webp";
+import juicer from "/images/juicer.jpg";
+import peeler from "/images/peeler.jpg";
 
 function CocktailUtensils() {
   return (
     <Box sx={{ maxWidth: 600, mx: "auto", px: 2, marginTop: "20px" }}>
-      <Typography variant="h5" sx={{ mb: 2 ,  color:"orange"}}>
+      <Typography variant="h5" sx={{ mb: 2, color: "orange" }}>
         The Importance of Tools in Cocktails: Essential Utensils and Their Uses
       </Typography>
-      <Typography variant="body1" sx={{ mb: 2  }}>
+      <Typography variant="body1" sx={{ mb: 2 }}>
         Crafting the perfect cocktail is an art that goes beyond just mixing
         ingredients. The right tools can elevate the process, ensuring
         precision, enhancing flavors, and improving presentation. Whether you're
@@ -31,7 +31,7 @@ function CocktailUtensils() {
         alt="Cocktail Shaker"
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
-      <Typography variant="h5" sx={{ mt: 2, mb: 1,color:"orange" }}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Cocktail Shaker
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -55,7 +55,7 @@ function CocktailUtensils() {
         alt="Cocktail Jigger"
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
-      <Typography variant="h5" sx={{ mt: 2, mb: 1 ,color:"orange"}}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Jigger
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -76,7 +76,7 @@ function CocktailUtensils() {
         alt="Mixing Glass"
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
-      <Typography variant="h5" sx={{ mt: 2, mb: 1 ,color:"orange"}}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Mixing Glass
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -96,7 +96,7 @@ function CocktailUtensils() {
         alt="Bar Spoon"
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
-      <Typography variant="h5" sx={{mt: 2, mb: 1 ,color:"orange"}}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Bar Spoon
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -120,7 +120,7 @@ function CocktailUtensils() {
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
 
-      <Typography variant="h5" sx={{mt: 2, mb: 1 ,color:"orange"}}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Strainer
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -152,7 +152,7 @@ function CocktailUtensils() {
         alt="Cocktail muddler"
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
-      <Typography variant="h5" sx={{mt: 2, mb: 1 ,color:"orange" }}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Muddler
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -178,7 +178,7 @@ function CocktailUtensils() {
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
 
-      <Typography variant="h5" sx={{mt: 2, mb: 1 ,color:"orange" }}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Citrus Juicer
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>
@@ -204,7 +204,7 @@ function CocktailUtensils() {
         sx={{ width: "70%", height: "auto", mb: 2 }}
       />
 
-      <Typography variant="h5" sx={{mt: 2, mb: 1 ,color:"orange" }}>
+      <Typography variant="h5" sx={{ mt: 2, mb: 1, color: "orange" }}>
         Peeler
       </Typography>
       <Typography variant="body1" sx={{ mb: 2 }}>

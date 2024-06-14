@@ -22,7 +22,6 @@ function AuthWrapper(props) {
             setIsAuthenticating(false)
             
         } catch (error) {
-            console.log(error); //! console log
             setIsLoggedIn(false)
             setloggedUserId(null)
             setIsAuthenticating(false)

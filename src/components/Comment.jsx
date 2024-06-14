@@ -23,7 +23,7 @@ function Comment() {
     useContext(AuthContext);
 
   //estados
-  //lista comentarios, tenia que haberle llamado commentsList, ya tarde.
+  //lista comentarios
   const [comments, setComments] = useState([]);
   //valor comentario
   const [commentValue, setCommentValue] = useState("");
@@ -36,35 +36,12 @@ function Comment() {
   async function pillarData() {
     try {
       const response = await service.get(`/comments/${params.cocktailId}`);
-      console.log(response.data);
       setComments(response.data);
     } catch (error) {
-      console.log(error);
+      navigate("/error");
     }
   }
   //Actualizar y eliminar
-  /*const updateComment = async (updatedComment) => {
-    try {
-        if(commentToEdit && commentToEdit._id){
-        const response = await service.put(`/comments/${commentToEdit._id}`, {description: updatedComment})
-        const updatedComments = comments.map((eachComment) =>{
-            if(eachComment._id === commentToEdit._id){
-                return response.data
-            }
-            return eachComment
-        })
-        setComments(updatedComments)
-        setEditing(false)
-        setCommentValue("")
-    }else{
-        console.log("no hay comentario que editar");
-    }
-        
-    } catch (error) {
-        console.log(error);
-        
-    }
-}*/
 
   const handleDelete = async (comment) => {
     try {
@@ -73,11 +50,11 @@ function Comment() {
       await service.delete(`/comments/${comment._id}`);
       pillarData();
     } catch (error) {
-      console.log(error);
+      navigate("/error");
     }
   };
 
-  //formualrios
+  //formularios
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,7 +68,7 @@ function Comment() {
 
       setCommentValue("");
     } catch (error) {
-      console.log(error); //meter navigate error
+      navigate("/error");
     }
   };
 
@@ -99,32 +76,6 @@ function Comment() {
   const handleChange = (e) => {
     setCommentValue(e.target.value);
   };
-  //para el boton de edit
-  /*const handleEdit = (comment) => {
-    setEditing(true);
-    setCommentToEdit(comment);
-    setCommentValue(comment.description);
-  };*/
-  //para el boton de update formulario
-  /*const handleUpdate = (e) => {
-    e.preventDefault();
-    if (commentToEdit) {
-      const updatedComment = {
-        _id: commentToEdit._id,
-
-        description: commentValue,
-      };
-      updateComment(commentToEdit.description);
-      setComments(
-        comments.map((eachComment) =>
-          eachComment.id === commentToEdit._id ? updatedComment : eachComment
-        )
-      );
-    } else {
-      console.log("no comment to edit");
-    }
-  };*/
-
 
   return (
     <Box>
@@ -137,7 +88,7 @@ function Comment() {
                 primary={comment.description}
                 secondary={`By: ${comment.user.username}`}
               />
-              {isLoggedIn && comment.user._id === loggedUserId &&(
+              {isLoggedIn && comment.user._id === loggedUserId && (
                 <ListItemSecondaryAction>
                   <IconButton onClick={() => handleDelete(comment)}>
                     <Delete />
@@ -171,11 +122,8 @@ function Comment() {
         >
           Add Comment
         </Button>
-        {!isLoggedIn && (
-          <p>You must be logged to comment</p>
-        )}
+        {!isLoggedIn && <p>You must be logged to comment</p>}
       </form>
-      
     </Box>
   );
 }

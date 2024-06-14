@@ -11,7 +11,6 @@ import { darkTheme, lightTheme } from '../themes'
 
 
 //NAVBAR
-//imagen
 import logo from "/images/logo.png"
 
 import AppBar from '@mui/material/AppBar';
@@ -19,9 +18,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-/* import Switch from '@mui/material/Switch'; */
-/* import FormControlLabel from '@mui/material/FormControlLabel'; */
-/* import FormGroup from '@mui/material/FormGroup'; */
+
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Drawer from '@mui/material/Drawer'
@@ -44,11 +41,7 @@ function Navbar({darkMode, handleThemeChange}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] =useState(false)
 
-//SE QUITA
 
-  /* const handleChange = (event) => {
-    setAuth(event.target.checked);
-  }; */
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -87,14 +80,14 @@ function Navbar({darkMode, handleThemeChange}) {
         <img className="shake" src={logo} width={"120px"}/>
         {isLoggedIn && (
           <ListItem button component={Link} to="/create-cocktail">
-            <ListItemText primary="Crea tu Cocktail" />
+            <ListItemText primary="Create your Cocktail" />
           </ListItem>
           )}
             <ListItem button component={Link} to="/cocktails">
-              <ListItemText primary="Lista de Cocktails" />
+              <ListItemText primary="Cocktail List" />
             </ListItem>
             <ListItem button component={Link} to="/bars">
-              <ListItemText primary="Coctelerias" />
+              <ListItemText primary="Cocktail Bars" />
             </ListItem>
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMore/>}
@@ -190,37 +183,10 @@ function Navbar({darkMode, handleThemeChange}) {
       {drawer}
     </Drawer>
   </Box>
-  /* 
-    <nav>
-        <Link to="/">Home</Link>
-        {isLoggedIn === false && <>
-        <Link to="/signup">Register</Link>
-        <Link to="/login">Login</Link>
-        </>}
-        {isLoggedIn === true && <>
-        <Link to="/profile">Profile</Link>
-        <Link onClick={handleLogOut}>Log Out</Link>
-        </>}
-    </nav>
-        */
+  
   )
 }
 
 
 
-/*
-<AppBar position="static"></AppBar>
-<FormGroup>
-<FormControlLabel
-control={
-  <Switch
-  checked={auth}
-  onChange={handleChange}
-  aria-label="login switch"
-  />
-}
-label={auth ? 'Logout' : 'Login'}
-/>
-</FormGroup>
-*/
 export default Navbar

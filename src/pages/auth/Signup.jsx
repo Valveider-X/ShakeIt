@@ -1,5 +1,4 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from "react"
 import service from "../../services/config.services";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
@@ -7,39 +6,36 @@ import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-function Signup(){
-    const navigate = useNavigate()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [username, setUsername] = useState("")
-    const [errorMessage, setErrorMessage]= useState("")
+function Signup() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleEmailChange = (e) => setEmail(e.target.value)
-    const handlePasswordChange = (e) => setPassword(e.target.value)
-    const handleUsernameChange = (e) => setUsername(e.target.value)
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleUsernameChange = (e) => setUsername(e.target.value);
 
-    const handleSignup = async (e) => { e.preventDefault()
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
-        const newUser = {
-            email: email,
-            password: password,
-            username: username
-        }
-        try {
-            await service.post("auth/signup", newUser)
-            navigate("/login")
-
-        } catch (error) {
-            if(error.response.status=== 400){
-                setErrorMessage(error.response.data.errorMessage)
-            }
-            console.log(error) //! console.log
-            //ponemos página de error si es un error que no puede solucionar usuario(mirar)
-            
-        }
+    const newUser = {
+      email: email,
+      password: password,
+      username: username,
+    };
+    try {
+      await service.post("auth/signup", newUser);
+      navigate("/login");
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      }
     }
-    return(
-      <Box
+  };
+  return (
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -49,12 +45,12 @@ function Signup(){
       }}
     >
       <Typography variant="h4" gutterBottom>
-        Formulario de Registro
+        Register Form
       </Typography>
 
       <form onSubmit={handleSignup} style={{ width: "300px" }}>
         <TextField
-          label="Correo Electrónico"
+          label="e-mail"
           variant="outlined"
           fullWidth
           margin="normal"
@@ -64,7 +60,7 @@ function Signup(){
         />
 
         <TextField
-          label="Nombre de Usuario"
+          label="User Name"
           variant="outlined"
           fullWidth
           margin="normal"
@@ -74,7 +70,7 @@ function Signup(){
         />
 
         <TextField
-          label="Contraseña"
+          label="Password"
           variant="outlined"
           fullWidth
           margin="normal"
@@ -90,7 +86,7 @@ function Signup(){
           fullWidth
           sx={{ mt: 2 }}
         >
-          Registrar
+          Register
         </Button>
 
         {errorMessage && (
@@ -102,4 +98,4 @@ function Signup(){
     </Box>
   );
 }
-export default Signup
+export default Signup;
