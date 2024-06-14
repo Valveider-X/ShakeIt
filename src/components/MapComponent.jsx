@@ -250,7 +250,7 @@ function MapComponent() {
   return (
     <Container>
       <br />
-      <h3>Here you can view the most notorious cocktails of Madrid</h3>
+      <h3>Here you can view the most notorious Cocktail Bars of Madrid</h3>
       <Box
         id="map"
         sx={{
