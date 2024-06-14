@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import pin from "/images/pinpoint.png"
 
 import L from "leaflet";
 import { Box, Container } from "@mui/material";
@@ -14,6 +15,7 @@ function MapComponent() {
       lng: -3.70472,
       description:
         "Specializing in classic cocktails, with a wide variety of drinks inspired by original recipes from before Prohibition.",
+      icon: {pin}
     },
     {
       name: "The Dash",
@@ -232,7 +234,14 @@ function MapComponent() {
   useEffect(() => {
     if (map) {
       bars.forEach((bar) => {
-        const marker = L.marker([bar.lat, bar.lng]).addTo(map);
+        const pinpoint = new L.Icon({
+          iconUrl: pin,
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -41],
+          iconSize: [25, 25],
+          className: "marker-icon"
+        })
+        const marker = L.marker([bar.lat, bar.lng], {icon: pinpoint}).addTo(map);
         marker.bindPopup(`${bar.name}<br>${bar.description}`);
       });
     }
